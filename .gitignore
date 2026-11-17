@@ -49,3 +49,6 @@ app.*.map.json
 
 # Android build output
 /android/build/
+
+# Sujet du workshop (ne pas publier)
+Workshop_*.pdf
