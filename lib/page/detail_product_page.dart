@@ -1,8 +1,6 @@
 import 'package:esilv_shop/model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 
 import '../model/product.dart';
 
@@ -36,6 +34,20 @@ class DetailProductPage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
+                for (var i = 0; i < 5; i++)
+                  Icon(
+                    i < product.rate.round() ? Icons.star : Icons.star_border,
+                    color: Colors.amber,
+                    size: 18,
+                  ),
+                Text(" ${product.rate}/5"),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
                 Expanded(
                   child: Text(
                     product.title,
@@ -56,14 +68,11 @@ class DetailProductPage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(product.category),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Chip(
-              label: Text(
-                ref.watch(cartProvider).contains(product) ? "Déjà dans le panier" : ""
-              ),
+          if (ref.watch(cartProvider).any((p) => p.id == product.id))
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Chip(label: Text("Déjà dans le panier")),
             ),
-          ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),

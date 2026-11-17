@@ -5,6 +5,7 @@ class Product {
   final String category;
   final String image;
   final num price;
+  final num rate;
 
   //Constructeur avec les paramètres nommés "required"
   Product({
@@ -14,6 +15,7 @@ class Product {
     required this.price,
     required this.category,
     required this.description,
+    required this.rate,
   });
   String getPrice() => "${price.toStringAsFixed(2)}€";
 
@@ -25,6 +27,7 @@ class Product {
       'category': this.category,
       'image': this.image,
       'price': this.price,
+      'rating': {'rate': this.rate},
     };
   }
 
@@ -36,6 +39,7 @@ class Product {
       category: map['category'] as String,
       image: map['image'] as String,
       price: map['price'] as num,
+      rate: map['rating']['rate'] as num,
     );
   }
 }

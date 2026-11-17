@@ -15,5 +15,6 @@ class Cart extends _$Cart {
     state = state.where((element) => element.id != product.id).toList();
   }
 
-
+  String get priceInEuros =>
+      "${state.fold<num>(0, (prv, actual) => prv + actual.price).toStringAsFixed(2)}€";
 }

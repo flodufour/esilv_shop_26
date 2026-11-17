@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 
 
 class ListProductPage extends ConsumerWidget {
@@ -18,7 +17,7 @@ class ListProductPage extends ConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('appbarTitle'),
         actions: [
-          IconButton(onPressed: (){},
+          IconButton(onPressed: () => context.go('/cart'),
           icon: Badge.count(
               child: Icon(Icons.shopping_cart_outlined),
               count: ref.watch(cartProvider).length
@@ -43,7 +42,7 @@ class ListProductPage extends ConsumerWidget {
                 leading: Image.network(products[index].image, width: 80),
                 trailing: TextButton(
                   onPressed: () {
-                    context.read<Cart>().add(products[index]);
+                    ref.read(cartProvider.notifier).add(products[index]);
                   },
                   child: Text("Ajouter".toUpperCase()),
                 ),
