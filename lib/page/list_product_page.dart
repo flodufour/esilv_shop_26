@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:esilv_shop/model/cart.dart';
 import 'package:esilv_shop/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+
 
 class ListProductPage extends StatelessWidget {
   const ListProductPage({super.key});
@@ -13,7 +16,15 @@ class ListProductPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('appbarTitle'),
-      ),
+        actions: [
+          IconButton(onPressed: (){},
+          icon: Badge.count(
+              child: Icon(Icons.shopping_cart_outlined),
+              count: context.watch<Cart>().products.length
+              ),
+          ),
+        ],
+    ),
       body: FutureBuilder(
         future: fetchProducts(),
         builder: (context, asyncSnapshot) {
@@ -30,7 +41,9 @@ class ListProductPage extends StatelessWidget {
                 ),
                 leading: Image.network(products[index].image, width: 80),
                 trailing: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<Cart>().add(products[index]);
+                  },
                   child: Text("Ajouter".toUpperCase()),
                 ),
               ),

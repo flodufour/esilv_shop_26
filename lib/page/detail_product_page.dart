@@ -1,4 +1,7 @@
+import 'package:esilv_shop/model/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import '../model/product.dart';
 
@@ -50,13 +53,21 @@ class DetailProductPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(product.category),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Chip(
+              label: Text(
+                context.watch<Cart>().contains(product) ? "Déjà dans le panier" : ""
+              ),
+            ),
+          ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () => context.read<Cart>().add(product),
                 child: Text("Ajouter au panier"),
               ),
             ),
